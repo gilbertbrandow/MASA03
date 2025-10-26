@@ -1,0 +1,383 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\title{Main results - MASA03}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\section*{Probability spaces}
+Definition. A \emph{probability space} is a triple \((\Omega,\mathcal F,P)\) where:
+\begin{itemize}[leftmargin=1.2em]
+  \item \(\Omega\): \emph{sample space} (set of outcomes).
+  \item \(\mathcal F\subseteq 2^\Omega\): \emph{$\sigma$-algebra} of events: 
+    \(\Omega\in\mathcal F\); if \(A\in\mathcal F\) then \(A^c\in\mathcal F\); 
+    if \(A_1,A_2,\dots\in\mathcal F\) then \(\bigcup_{n\ge1}A_n\in\mathcal F\).
+  \item \(P:\mathcal F\to[0,1]\): \emph{probability measure} satisfying the axioms:
+  \begin{enumerate}[label=(\roman*), leftmargin=1.5em]
+    \item Non-negativity: \(P(A)\ge 0\) for all \(A\in\mathcal F\).
+    \item Normalization: \(P(\Omega)=1\).
+    \item $\sigma$-additivity: if \(A_i\in\mathcal F\) are pairwise disjoint,
+      \(\displaystyle P\!\Big(\bigcup_{i=1}^\infty A_i\Big)=\sum_{i=1}^\infty P(A_i)\).
+  \end{enumerate}
+\end{itemize}
+
+Immediate consequences (useful):
+\(P(\varnothing)=0\), \quad \(P(A^c)=1-P(A)\), \quad 
+\(A\subseteq B\Rightarrow P(A)\le P(B)\), \quad
+if \(A\cap B=\varnothing\) then \(P(A\cup B)=P(A)+P(B)\).
+
+
+\subsection{Random Variable}
+Definition. A function $X: \Omega \to \mathbb{R}$ is a \emph{random variable} on the probability space $(\Omega, \mathcal F, P)$ if it satisfies the condition of $\mathcal F$-measurability:
+$$
+\text{For every Borel set } B \in \mathcal{B}(\mathbb{R}), \quad X^{-1}(B) = \{\omega \in \Omega : X(\omega) \in B\} \in \mathcal{F}
+$$
+\subsubsection*{Required Conditions}
+The crucial condition is that the pre-image of any set $B$ for which a probability is defined in $\mathbb{R}$ must be an event in the $\sigma$-algebra $\mathcal{F}$. The probability measure $P$ on $\mathcal{F}$ itself is not involved in defining $X$ as a random variable, only the structure of $\mathcal{F}$.
+
+\section*{Law of Total Probability (LTP)}
+If \(A_1,\dots,A_k\) form a partition of \(\Omega\) (pairwise disjoint, \(\bigcup_i A_i=\Omega\)), then for any event \(B\),
+\[
+P(B)=\sum_{i=1}^k P(B\mid A_i)\,P(A_i).
+\]
+(Countable version holds similarly.)
+
+\section*{Bayes' Rule}
+For events \(A_j\) and \(B\) with \(P(B)>0\),
+\[
+P(A_j\mid B)=\frac{P(B\mid A_j)\,P(A_j)}{\sum_{i} P(B\mid A_i)\,P(A_i)}.
+\]
+The denominator is \(P(B)\) from the LTP over the partition \(\{A_i\}\).
+
+\section{Joint distributions and tools}
+
+\subsection{Joint density and normalization}
+A pair $(X,Y)$ has joint density $f_{X,Y}(x,y)\ge 0$ with
+\[
+\iint_{\mathbb R^2} f_{X,Y}(x,y)\,dx\,dy=1.
+\]
+
+\subsection{Marginals}
+\[
+f_X(x)=\int_{-\infty}^{\infty} f_{X,Y}(x,y)\,dy,
+\qquad
+f_Y(y)=\int_{-\infty}^{\infty} f_{X,Y}(x,y)\,dx.
+\]
+
+\subsection{Independence}
+$X$ and $Y$ are independent iff
+\[
+f_{X,Y}(x,y)=f_X(x)\,f_Y(y)\quad\text{(almost everywhere on the support).}
+\]
+
+\subsection{Conditional density}
+For $f_X(x)>0$,
+\[
+f_{Y\mid X}(y\mid x)=\frac{f_{X,Y}(x,y)}{f_X(x)}.
+\]
+
+\subsection{Cumulative distribution function (cdf)}
+For any random variable $Z$,
+\[
+F_Z(z)=\Pr(Z\le z), \qquad \Pr(a<Z\le b)=F_Z(b)-F_Z(a).
+\]
+If $Z$ has a density $f_Z$, then
+\[
+f_Z(z)=\frac{d}{dz}F_Z(z).
+\]
+
+\subsection{Product variable via the cdf method}
+For $Z=XY$ with $(X,Y)$ supported on $[a,b]\times[c,d]\subseteq[0,\infty)^2$,
+\[
+F_Z(z)=\Pr(XY\le z)=
+\iint_{\{(x,y)\in[a,b]\times[c,d]:\,xy\le z\}} f_{X,Y}(x,y)\,dx\,dy,
+\]
+and $f_Z(z)=\dfrac{d}{dz}F_Z(z)$ on the interior of the support of $Z$.
+
+\section{Expectation and related results}
+
+\subsection{Definition}
+For a random variable $X$ with pdf $f_X$ or pmf $p_X$,
+\[
+E[X]=
+\begin{cases}
+\displaystyle \sum_x x\,p_X(x), & \text{(discrete)},\\[2mm]
+\displaystyle \int_{-\infty}^{\infty} x\,f_X(x)\,dx, & \text{(continuous)}.
+\end{cases}
+\]
+More generally (Law of the Unconscious Statistician, LOTUS),
+\[
+E[g(X)] =
+\begin{cases}
+\displaystyle \sum_x g(x)\,p_X(x),\\[2mm]
+\displaystyle \int g(x)\,f_X(x)\,dx.
+\end{cases}
+\]
+
+\subsection{Conditional expectation and total laws}
+For densities,
+\[
+E[X\mid Y=y]=\int x\,f_{X\mid Y}(x\mid y)\,dx,
+\qquad
+f_{X\mid Y}(x\mid y)=\frac{f_{X,Y}(x,y)}{f_Y(y)}.
+\]
+
+\paragraph{Law of total expectation (tower property):}
+\[
+E[X]=E\big(E[X\mid Y]\big).
+\]
+
+\paragraph{Law of total probability (continuous form):}
+For any event $A$,
+\[
+P(A)=\int P(A\mid Y=y)\,f_Y(y)\,dy
+\quad\text{or, for discrete $Y$,}\quad
+P(A)=\sum_y P(A\mid Y=y)\,P(Y=y).
+\]
+
+This expresses the overall probability $P(A)$ as the average (expectation) of the conditional probabilities $P(A\mid Y=y)$ weighted by how likely each $y$ is.  
+Equivalently,
+\[
+P(A)=E\big[P(A\mid Y)\big].
+\]
+Hence, probabilities are special cases of expectations:
+\[
+P(X<Y)=E\big[P(X<Y\mid X)\big].
+\]
+
+\subsection{Variance and Covariance}
+\begin{align*}
+\operatorname{Var}(X) &= E[X^2]-\big(E[X]\big)^2 \\
+\operatorname{Cov}(X,Y) &= E[XY]-E[X]E[Y]
+\end{align*}
+
+\subsubsection{Law of Total Variance (Conditional Version)}
+\[
+\operatorname{Var}(X)=E[\operatorname{Var}(X\mid Y)] + \operatorname{Var}(E[X\mid Y])
+\]
+
+\subsubsection{Relationship Between $\operatorname{Cov}$ and $\operatorname{Var}$}
+\[
+\operatorname{Var}(X) = \operatorname{Cov}(X, X)
+\]
+
+\subsubsection{Correlation Coefficient ($\rho$)}
+The correlation coefficient is the standardized covariance.
+\[
+\rho_{X,Y} = \operatorname{Corr}(X,Y) = \frac{\operatorname{Cov}(X,Y)}{\sqrt{\operatorname{Var}(X)}\sqrt{\operatorname{Var}(Y)}} = \frac{\operatorname{Cov}(X,Y)}{\sigma_X \sigma_Y}
+\]
+\paragraph{Identity:}
+The identity for correlation is its range:
+\[
+-1 \leq \rho_{X,Y} \leq 1
+\]
+\paragraph{Covariance in terms of Correlation:}
+\[
+\operatorname{Cov}(X,Y) = \rho_{X,Y} \sigma_X \sigma_Y
+\]
+
+\section{Common Probability Distributions}
+
+Below are several standard distributions frequently used in probability and statistics, with their probability mass or density functions and key characteristics.
+
+\subsection{Discrete distributions}
+
+\subsubsection*{Binomial distribution}
+\[
+X \sim \operatorname{Bin}(n,p)
+\]
+\[
+P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \qquad k = 0,1,\dots,n.
+\]
+\[
+E[X] = np, \qquad \operatorname{Var}(X) = np(1-p).
+\]
+
+\subsubsection*{Bernoulli distribution}
+\[
+X \sim \operatorname{Bern}(p)
+\]
+\[
+P(X = 1) = p, \quad P(X = 0) = 1 - p.
+\]
+\[
+E[X] = p, \qquad \operatorname{Var}(X) = p(1-p).
+\]
+
+\subsubsection*{Poisson distribution}
+\[
+X \sim \operatorname{Poisson}(\lambda)
+\]
+\[
+P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}, \qquad k = 0,1,2,\dots
+\]
+\[
+E[X] = \lambda, \qquad \operatorname{Var}(X) = \lambda.
+\]
+
+\subsection{Continuous distributions}
+
+\subsubsection*{Uniform distribution}
+\[
+X \sim \operatorname{Unif}(a,b)
+\]
+\[
+f_X(x) = 
+\begin{cases}
+\dfrac{1}{b - a}, & a \le x \le b,\\
+0, & \text{otherwise.}
+\end{cases}
+\]
+\[
+E[X] = \dfrac{a + b}{2}, \qquad \operatorname{Var}(X) = \dfrac{(b - a)^2}{12}.
+\]
+
+\subsubsection*{Exponential distribution}
+\[
+X \sim \operatorname{Exp}(\lambda)
+\]
+\[
+f_X(x) = 
+\begin{cases}
+\lambda e^{-\lambda x}, & x \ge 0,\\
+0, & \text{otherwise.}
+\end{cases}
+\]
+\[
+E[X] = \dfrac{1}{\lambda}, \qquad \operatorname{Var}(X) = \dfrac{1}{\lambda^2}.
+\]
+\textbf{Memoryless property:} 
+\(P(X > s + t \mid X > s) = P(X > t).\)
+
+\subsubsection*{Normal (Gaussian) distribution}
+\[
+X \sim N(\mu, \sigma^2)
+\]
+\[
+f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\!\left(-\frac{(x - \mu)^2}{2\sigma^2}\right), \qquad x \in \mathbb{R}.
+\]
+\[
+E[X] = \mu, \qquad \operatorname{Var}(X) = \sigma^2.
+\]
+
+\subsubsection*{Standard Normal distribution}
+\[
+Z \sim N(0,1)
+\]
+\[
+f_Z(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2},
+\qquad
+F_Z(z) = \Phi(z) = \int_{-\infty}^{z} f_Z(t)\,dt.
+\]
+
+\subsubsection*{Gamma distribution}
+\[
+X \sim \operatorname{Gamma}(\alpha, \lambda)
+\]
+\[
+f_X(x) =
+\begin{cases}
+\dfrac{\lambda^{\alpha}}{\Gamma(\alpha)}\, x^{\alpha-1} e^{-\lambda x}, & x > 0,\\
+0, & \text{otherwise.}
+\end{cases}
+\]
+\[
+E[X] = \dfrac{\alpha}{\lambda}, \qquad \operatorname{Var}(X) = \dfrac{\alpha}{\lambda^2}.
+\]
+Special case: \(\operatorname{Exp}(\lambda) = \operatorname{Gamma}(1,\lambda).\)
+
+\subsection{Summary Table}
+
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+\textbf{Distribution} & \textbf{Support} & \textbf{Mean} & \textbf{Variance} \\ \hline
+Bernoulli($p$) & $\{0,1\}$ & $p$ & $p(1-p)$ \\
+Binomial($n,p$) & $\{0,\dots,n\}$ & $np$ & $np(1-p)$ \\
+Poisson($\lambda$) & $\mathbb{N}_0$ & $\lambda$ & $\lambda$ \\
+Uniform($a,b$) & $[a,b]$ & $(a+b)/2$ & $(b-a)^2/12$ \\
+Exponential($\lambda$) & $[0,\infty)$ & $1/\lambda$ & $1/\lambda^2$ \\
+Normal($\mu,\sigma^2$) & $\mathbb{R}$ & $\mu$ & $\sigma^2$ \\
+Gamma($\alpha,\lambda$) & $[0,\infty)$ & $\alpha/\lambda$ & $\alpha/\lambda^2$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Limit Theorems: LLN and CLT}
+
+\subsection{Law of Large Numbers (LLN)}
+
+Let $X_1, X_2, \dots$ be i.i.d.\ random variables with $E[X_i]=\mu$ and $\operatorname{Var}(X_i)=\sigma^2<\infty$.
+Define the sample mean
+\[
+\bar{X}_n = \frac{1}{n}\sum_{i=1}^{n} X_i.
+\]
+
+\subsubsection*{Weak Law of Large Numbers (WLLN)}
+\[
+\bar{X}_n \xrightarrow{P} \mu \quad\text{as } n\to\infty.
+\]
+That is, for every $\varepsilon>0$,
+\[
+P(|\bar{X}_n - \mu| > \varepsilon) \longrightarrow 0.
+\]
+\textbf{Interpretation:} The sample mean converges in probability to the true mean $\mu$.
+
+\subsubsection*{Strong Law of Large Numbers (SLLN)}
+\[
+\bar{X}_n \xrightarrow{\text{a.s.}} \mu \quad\text{as } n\to\infty.
+\]
+That is,
+\[
+P\!\Big(\lim_{n\to\infty}\bar{X}_n = \mu\Big)=1.
+\]
+\textbf{Interpretation:} The sample mean converges almost surely (with probability 1) to the true mean $\mu$.
+
+\paragraph{Difference between weak and strong forms:}
+Both state that $\bar{X}_n$ approaches $\mu$ as $n$ grows, but:
+\begin{itemize}[leftmargin=1.2em]
+  \item \textbf{Weak LLN:} convergence in probability (approximate closeness for large $n$).
+  \item \textbf{Strong LLN:} almost sure convergence (the entire sequence converges for almost every outcome).
+\end{itemize}
+
+\subsection{Central Limit Theorem (CLT)}
+
+\textbf{Theorem (Lindeberg-Lévy CLT).}
+Let $X_1, X_2, \dots, X_n$ be i.i.d.\ random variables with
+\[
+E[X_i]=\mu, \qquad \operatorname{Var}(X_i)=\sigma^2<\infty.
+\]
+Then as $n\to\infty$,
+\[
+\frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma}
+\xRightarrow{d} N(0,1),
+\]
+where $\xRightarrow{d}$ denotes convergence in distribution.
+
+\textbf{Interpretation:}  
+For large $n$, the sample mean $\bar{X}_n$ is approximately normal:
+\[
+\bar{X}_n \approx N\!\left(\mu, \frac{\sigma^2}{n}\right).
+\]
+Hence, the CLT justifies using the normal distribution to approximate sums or averages of many independent random variables.
+
+\paragraph{Practical consequence:}
+For large $n$,
+\[
+P\!\left(\frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} \le z\right) \approx \Phi(z),
+\]
+where $\Phi(z)$ is the standard normal cdf.  
+This result underpins confidence intervals and hypothesis testing.
+
+
+
+
+\end{document}
