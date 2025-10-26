@@ -56,6 +56,78 @@ P(A_j\mid B)=\frac{P(B\mid A_j)\,P(A_j)}{\sum_{i} P(B\mid A_i)\,P(A_i)}.
 \]
 The denominator is \(P(B)\) from the LTP over the partition \(\{A_i\}\).
 
+\section{Transforms of random variables}
+
+\subsection{Sums (convolution)}
+\paragraph{Continuous, independent:}
+If $Z=X+Y$ and $X\perp Y$ with densities $f_X,f_Y$,
+\[
+f_Z(z)=(f_X * f_Y)(z)=\int_{-\infty}^{\infty} f_X(x)\,f_Y(z-x)\,dx.
+\]
+\textit{Support rule:} integrate $x$ over the intersection of supports
+$\{x:\ f_X(x)>0\}$ and $\{x:\ f_Y(z-x)>0\}$; this often yields piecewise limits.
+
+\paragraph{Discrete, independent:}
+If $p_X,p_Y$ are pmfs and $Z=X+Y$,
+\[
+p_Z(z)=\sum_{k\in\mathbb Z} p_X(k)\,p_Y(z-k).
+\]
+
+\paragraph{General (possibly dependent):}
+If the joint density $f_{X,Y}$ is known,
+\[
+f_Z(z)=\int_{-\infty}^{\infty} f_{X,Y}\big(x,\,z-x\big)\,dx.
+\]
+
+\subsection{Monotone scalar transforms}
+If $Z=g(X)$ and $g$ is strictly monotone with inverse $g^{-1}$,
+\[
+f_Z(z)= f_X\!\big(g^{-1}(z)\big)\;\left|\frac{d}{dz}g^{-1}(z)\right|.
+\]
+(\textit{CDF method:} $F_Z(z)=P(g(X)\le z)$ also works when $g$ is not monotone.)
+
+\subsection{Two-to-two transforms (Jacobian)}
+If $(U,V)=T(X,Y)$ is a bijection with inverse $(X,Y)=T^{-1}(U,V)$,
+\[
+f_{U,V}(u,v)= f_{X,Y}\!\big(T^{-1}(u,v)\big)\;
+\left|\det \frac{\partial(x,y)}{\partial(u,v)}\right|.
+\]
+Marginals follow by integrating out the other variable.
+
+\subsection{Products and quotients}
+\paragraph{Product $Z=XY$ (general case):}
+\[
+f_Z(z)=\int_{-\infty}^{\infty} f_{X,Y}\!\Big(x,\frac{z}{x}\Big)\,\frac{1}{|x|}\,dx
+\quad (\text{integrate over } x \text{ where } (x,z/x) \text{ is in support}).
+\]
+If $X,Y$ are independent: replace $f_{X,Y}$ with $f_X f_Y$ inside the integral.
+
+\paragraph{Quotient $Z=X/Y$:}
+\[
+f_Z(z)=\int_{-\infty}^{\infty} f_{X,Y}\!\big(zy,y\big)\,|y|\,dy.
+\]
+
+\subsection{Min and Max (use CDFs)}
+Let $M=\max(X,Y)$ and $m=\min(X,Y)$.
+If $X,Y$ are independent with cdfs $F_X,F_Y$ and densities $f_X,f_Y$,
+\[
+F_M(t)=P(M\le t)=F_X(t)F_Y(t),\qquad
+f_M(t)= f_X(t)F_Y(t)+F_X(t)f_Y(t).
+\]
+\[
+F_m(t)=1-P(X>t\ \text{or}\ Y>t)=1-(1-F_X(t))(1-F_Y(t)),\quad
+f_m(t)= f_X(t)(1-F_Y(t))+f_Y(t)(1-F_X(t)).
+\]
+
+\subsection{Quick recipe}
+\begin{enumerate}[leftmargin=1.2em]
+  \item \textbf{Identify the map:} $Z=X+Y$, $Z=g(X)$, or $(U,V)=T(X,Y)$.
+  \item \textbf{Pick the tool:} convolution (sum), monotone transform (one-to-one in 1D),
+        Jacobian (two-to-two), or the CDF method.
+  \item \textbf{Set the limits by geometry:} intersect supports after the change of variables.
+  \item \textbf{Normalize/check:} verify $\int f_Z=1$ (or $\sum p_Z=1$).
+\end{enumerate}
+
 \section{Joint distributions and tools}
 
 \subsection{Joint density and normalization}
