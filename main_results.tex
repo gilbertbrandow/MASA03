@@ -118,16 +118,6 @@ f_M(t)= f_X(t)F_Y(t)+F_X(t)f_Y(t).
 F_m(t)=1-P(X>t\ \text{or}\ Y>t)=1-(1-F_X(t))(1-F_Y(t)),\quad
 f_m(t)= f_X(t)(1-F_Y(t))+f_Y(t)(1-F_X(t)).
 \]
-
-\subsection{Quick recipe}
-\begin{enumerate}[leftmargin=1.2em]
-  \item \textbf{Identify the map:} $Z=X+Y$, $Z=g(X)$, or $(U,V)=T(X,Y)$.
-  \item \textbf{Pick the tool:} convolution (sum), monotone transform (one-to-one in 1D),
-        Jacobian (two-to-two), or the CDF method.
-  \item \textbf{Set the limits by geometry:} intersect supports after the change of variables.
-  \item \textbf{Normalize/check:} verify $\int f_Z=1$ (or $\sum p_Z=1$).
-\end{enumerate}
-
 \section{Joint distributions and tools}
 
 \subsection{Joint density and normalization}
