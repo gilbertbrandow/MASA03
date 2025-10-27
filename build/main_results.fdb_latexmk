@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1761486821.46952 "/Users/simongustafsson/Desktop/Bachelors in Mathematics/MASA03/main_results.tex" "build/main_results.pdf" "main_results" 1761486822.05458 0
-  "/Users/simongustafsson/Desktop/Bachelors in Mathematics/MASA03/main_results.tex" 1761486820.60065 13429 ca4d22c87eb7d22624edfddfe80768f4 ""
+["pdflatex"] 1761561806.88389 "/Users/simongustafsson/Desktop/Bachelors in Mathematics/MASA03/main_results.tex" "build/main_results.pdf" "main_results" 1761561807.63815 0
+  "/Users/simongustafsson/Desktop/Bachelors in Mathematics/MASA03/main_results.tex" 1761561806.64102 14223 4a9cf7218770f661349340fe6c58f42f ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -98,9 +98,9 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1725786739.30054 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1725786567 8221431 0e3ed4c0ce3a607b82f78dc061b52468 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "build/main_results.aux" 1761486821.99319 5317 5b1410102a821652d318de69ca94d31b "pdflatex"
-  "build/main_results.out" 1761486821.9939 5493 4ee985673a4802aefa98c99df1c1b25f "pdflatex"
-  "main_results.tex" 1761486820.60065 13429 ca4d22c87eb7d22624edfddfe80768f4 ""
+  "build/main_results.aux" 1761561807.54526 5745 efe4bbcb2658d3fcc66f35220e6fca3a "pdflatex"
+  "build/main_results.out" 1761561807.54595 5493 4ee985673a4802aefa98c99df1c1b25f "pdflatex"
+  "main_results.tex" 1761561806.64102 14223 4a9cf7218770f661349340fe6c58f42f ""
   (generated)
   "build/main_results.aux"
   "build/main_results.log"

@@ -257,8 +257,6 @@ The identity for correlation is its range:
 
 \section{Common Probability Distributions}
 
-Below are several standard distributions frequently used in probability and statistics, with their probability mass or density functions and key characteristics.
-
 \subsection{Discrete distributions}
 
 \subsubsection*{Binomial distribution}
@@ -282,6 +280,37 @@ P(X = 1) = p, \quad P(X = 0) = 1 - p.
 \[
 E[X] = p, \qquad \operatorname{Var}(X) = p(1-p).
 \]
+
+\subsubsection*{Geometric distribution}
+Two common parameterizations with success probability $p\in(0,1)$:
+
+\paragraph{(Trials until first success) } 
+$X \sim \operatorname{Geom}_1(p)$ with support $\{1,2,\ldots\}$.
+\[
+P(X=k)=(1-p)^{k-1}p,\qquad k=1,2,\ldots
+\]
+\[
+E[X]=\frac{1}{p},\qquad \operatorname{Var}(X)=\frac{1-p}{p^{2}}.
+\]
+Memoryless: $P(X>m+n\mid X>m)=(1-p)^n$.
+
+\paragraph{(Failures before first success) } 
+$Y \sim \operatorname{Geom}_0(p)$ with support $\{0,1,2,\ldots\}$.
+\[
+P(Y=k)=(1-p)^{k}p,\qquad k=0,1,2,\ldots
+\]
+\[
+E[Y]=\frac{1-p}{p},\qquad \operatorname{Var}(Y)=\frac{1-p}{p^{2}}.
+\]
+Relation: $X=Y+1$.
+
+\paragraph{CDFs:}
+\[
+F_X(k)=1-(1-p)^{k},\quad k\in\{1,2,\ldots\};\qquad
+F_Y(k)=1-(1-p)^{k+1},\quad k\in\{0,1,2,\ldots\}.
+\]
+
+\paragraph{Notes:} $\operatorname{Geom}_1(p)$ is the discrete analog of $\operatorname{Exp}(\lambda)$ and is a special case of the negative binomial (number of trials until the $r$-th success with $r=1$).
 
 \subsubsection*{Poisson distribution}
 \[
