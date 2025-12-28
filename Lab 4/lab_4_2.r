@@ -33,7 +33,7 @@ plot(
 
 
 abline(h = 0.95, lty = 2)
-abline(h = mean(covered), lty = 3)  # your final estimate at N=1000
+abline(h = mean(covered), lty = 3)
 
 legend(
   "bottomright",
