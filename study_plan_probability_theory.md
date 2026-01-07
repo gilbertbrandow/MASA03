@@ -1,4 +1,4 @@
-# MASA03 — Probability & Stats Exam: README
+# MASA03 — Probability Exam: README
 
 ## Session A (2–3h): Foundations + Bayes
 
