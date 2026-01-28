@@ -10,11 +10,11 @@
 
 ### Yellow
 
-- [ ] 19
-- [ ] 21 (symmetric integral)
-- [ ] 22
-- [ ] 24 (Integrals)
-- [ ] 25 (Normal formula)
+- [x] 19
+- [x] 21 (symmetric integral)
+- [x] 22
+- [x] 24 (Integrals)
+- [x] 25 (Normal formula)
 
 ### Yellowish
 
@@ -49,6 +49,6 @@
 
 ### Yellowishes
 
-- [ ] 3
-- [ ] 12
-- [ ] 27
+- [x] 3
+- [x] 12
+- [x] 27
