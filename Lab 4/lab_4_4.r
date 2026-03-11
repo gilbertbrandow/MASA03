@@ -1,75 +1,63 @@
-run_tests <- function(df, vars, groups, min_n_per_group = 30) {
-  results <- list()
+dat <- read.table("data.txt", header = TRUE)
 
-  for (v in vars) {
-    for (gr in groups) {
+bmi_male <- dat$BMI[dat$SEX == 1]
+bmi_female <- dat$BMI[dat$SEX == 2]
 
-      y <- df[[v]]
-      g <- df[[gr]]
+bmi_male <- bmi_male[!is.na(bmi_male)]
+bmi_female <- bmi_female[!is.na(bmi_female)]
 
-      ok <- is.finite(y) & !is.na(g)
-      y <- y[ok]
-      g <- droplevels(as.factor(g[ok]))
+t_res <- t.test(bmi_male, bmi_female)
+ks_res <- ks.test(bmi_male, bmi_female)
 
-      if (nlevels(g) < 2) next
+print(t_res)
+print(ks_res)
 
-      levs <- levels(g)
-      pairs <- combn(levs, 2, simplify = FALSE)
+par(mfrow = c(2, 2))
 
-      for (p in pairs) {
-        g2 <- droplevels(g[g %in% p])
-        y2 <- y[g %in% p]
+hist(bmi_male,
+  col = rgb(0, 0, 1, 0.4),
+  xlim = range(c(bmi_male, bmi_female)),
+  main = "BMI distribution by sex",
+  xlab = "BMI"
+)
 
-        y1 <- y2[g2 == p[1]]
-        yB <- y2[g2 == p[2]]
+hist(bmi_female,
+  col = rgb(1, 0, 0, 0.4),
+  add = TRUE
+)
 
-        n1 <- length(y1); n2 <- length(yB)
-        if (n1 < min_n_per_group || n2 < min_n_per_group) next
+legend("topright",
+  legend = c("Male", "Female"),
+  fill = c(rgb(0, 0, 1, 0.4), rgb(1, 0, 0, 0.4))
+)
 
-        tt <- t.test(y2 ~ g2)
-        mean1 <- mean(y1); mean2 <- mean(yB)
-        diff12 <- unname(mean1 - mean2)
+boxplot(bmi_male, bmi_female,
+  names = c("Male", "Female"),
+  main = "BMI by sex",
+  ylab = "BMI",
+  col = c("lightblue", "salmon")
+)
 
-        ks <- suppressWarnings(ks.test(y1, yB))
+plot(ecdf(bmi_male),
+  col = "blue",
+  main = "Empirical CDF of BMI",
+  xlab = "BMI",
+  ylab = "ECDF"
+)
 
-        results[[length(results) + 1]] <- data.frame(
-          variable = v,
-          grouping = gr,
-          group1 = p[1],
-          group2 = p[2],
-          n1 = n1,
-          n2 = n2,
-          mean1 = mean1,
-          mean2 = mean2,
-          mean_diff_1_minus_2 = diff12,
-          t_p = unname(tt$p.value),
-          t_ci_low = unname(tt$conf.int[1]),
-          t_ci_high = unname(tt$conf.int[2]),
-          ks_D = unname(ks$statistic),
-          ks_p = unname(ks$p.value),
-          stringsAsFactors = FALSE
-        )
-      }
-    }
-  }
+lines(ecdf(bmi_female), col = "red")
 
-  out <- do.call(rbind, results)
-  if (is.null(out)) out <- data.frame()
-  out
-}
+legend("bottomright",
+  legend = c("Male", "Female"),
+  col = c("blue", "red"),
+  lwd = 2
+)
 
-df <- read.table("data.txt", header = TRUE, quote = "\"")
-vars   <- c("CHOL", "BMI", "HDL", "LDL")
-groups <- c("SEX", "SMOKE", "T2D")
+qqplot(bmi_male, bmi_female,
+  xlab = "Male BMI quantiles",
+  ylab = "Female BMI quantiles",
+  main = "QQ comparison of BMI distributions"
+)
+abline(0, 1, col = "red")
 
-res <- run_tests(df, vars, groups, min_n_per_group = 30)
-
-if (nrow(res) > 0) {
-  alpha <- 0.05
-  res$t_sig  <- res$t_p  < alpha
-  res$ks_sig <- res$ks_p < alpha
-  res$agree  <- res$t_sig == res$ks_sig
-}
-
-res <- res[order(res$agree, res$t_p), ]
-print(res, row.names = FALSE)
+par(mfrow = c(1, 1))

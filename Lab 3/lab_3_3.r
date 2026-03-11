@@ -1,7 +1,7 @@
 set.seed(123)
 
 n  <- 200
-mu <- 0 
+mu <- 0
 N  <- 100000
 
 reject <- logical(N)
